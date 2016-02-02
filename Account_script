@@ -1,0 +1,164 @@
+/*
+-- Author     : Amarendra Nagireddy
+-- Date       : 19-01-2016
+-- Description: replicating Account records from [PS_InfoSnapProd] to [PS_Staging_Amar].Account_LoadInfoSnap
+-----------InfoSnap Account----------
+Total Records:27939
+after executing below query total no of records retrieved : 27939
+------------------------------------
+*/
+-- DROP TABLE Account_LoadInfoSnap
+DECLARE @strDefaultOwnerID NVARCHAR(18) = '00500000007ZoQpAAK'-- Full SB ID User Eve Nunez
+       ,@strDefaultRecordType	NVARCHAR(18) = '0120000000000atAAA'	-- Full SB Contact RT Name :PSS PSIT
+Use PS_Staging_Amar
+SELECT  ID			= CAST(SPACE(18) as NVARCHAR(18))
+	  ,ERROR		= CAST(SPACE(255) as NVARCHAR(255))
+	  ,Migrated_Record__c='True'
+	  ,RecordTypeId=@strDefaultRecordType
+	  --a.[Account_Source__c]  ----Delete or Defunct
+      --a.[Account_Status_OLD__c]  ----Delete or Defunct
+      ,a.[Account_Type__c]
+      ,a.[Admissions_DB__c]
+      ,a.[BillingCity]
+      ,a.[BillingCountry]
+      ,a.[BillingGeocodeAccuracy] --field not found in spreadsheet infosnap sfdc tab
+      ,a.[BillingLatitude] --field not found in spreadsheet infosnap sfdc tab
+      ,a.[BillingLongitude] --field not found in spreadsheet infosnap sfdc tab
+      ,a.[BillingPostalCode]
+      ,a.[BillingState]
+      ,a.[BillingStreet]
+      --,a.[Business_DB__c]    ----Delete or Defunct
+      ,a.[Charter_Authorizer__c]
+      ,a.[County__c]
+      ,a.[CreatedById]
+      ,a.[CreatedDate]
+      ,a.[Data_Delivery__c]
+      ,a.[Day_Boarding__c]
+      --,a.[Demographic_Details__c] ----Delete or Defunct
+      ,a.[Description]
+      --,a.[Details__c]         ----Delete or Defunct
+      --,a.[Dupe_ID__c]         ----Delete or Defunct
+      ,a.[Fax]
+      --,a.[Fundraiser_DB__c]   ----Delete or Defunct
+      --,a.[Gender_Type__c]     ----Delete or Defunct
+      ,a.[Grades__c]
+      ,ProdID=a.[Id]
+      ,a.[import_data__c]
+      ,a.[is_Account_Status__c]
+      ,a.[is_AE_Discovery_Lst_Updated__c]
+      ,a.[is_Any_Desires_Requests__c]
+      ,a.[is_Are_you_happy__c]
+      ,a.[is_Association__c]
+      --,a.[is_Confirm_all_DBs_Entered__c]      ----Delete or Defunct
+      ,a.[is_Consider_Online__c]
+      ,a.[is_considering_an_online_process__c]
+      ,a.[is_Describe_any_Deficiency_in_Resources__c]
+      ,a.[is_Discovery_Application_Process__c]
+      --,a.[is_Discovery_Confirm_Num_Apps__c]     ----Delete or Defunct
+      --,a.[is_Discovery_Confirm_Num_Schools__c]  ----Delete or Defunct
+      --,a.[is_Discovery_Confirm_Num_Students__c] ----Delete or Defunct
+      ,a.[is_Discovery_Current_Process__c]
+      ,a.[is_Discovery_Growth_Plans__c]
+      ,a.[is_Discovery_Indep_Application_Process__c]
+      ,a.[is_Discovery_Indep_Project__c]
+      ,a.[is_Discovery_Indep_Project_Success__c]
+      ,a.[is_Discovery_Indep_Registration_Process__c]
+      ,a.[is_Discovery_Pain_Points__c]
+      ,a.[is_Discovery_Project__c]
+      ,a.[is_Discovery_Project_Success__c]
+      ,a.[is_Discovery_Registration_Process__c]
+      --,a.[is_Discovery_SIS__c]   ----Delete or Defunct
+      ,a.[is_Discovery_When_does_this_occur__c]
+      ,a.[is_Foresee_departmental_conflicts__c]
+      ,a.[is_Former__c]
+      ,a.[is_Greatest_points_of_risk_that_you_see__c]
+      ,a.[is_hen_would_you_want_to_be_live__c]
+      ,a.[is_How_do_you_do_new_returning_reg__c]
+      ,a.[is_Information_Last_Updated__c]
+      ,a.[is_Is_CMO__c]
+      ,a.[is_Last_Activity_Date__c]
+      ,a.[is_Last_Spoke_To_On__c]
+      ,a.[is_Lottery__c]
+      ,a.[is_Migrated_Contacts_2012__c]
+      ,a.[is_Migrated_Status_2012__c]
+      ,a.[is_New_Student_Enrollment__c]
+      ,a.[is_Project_Public__c]
+      ,a.[is_Publicity_Alert__c]
+      ,a.[is_Publicity_Alert_Notes__c]
+      ,a.[is_Returning_Students__c]
+      ,a.[is_sc_Current_Process__c]
+      ,a.[is_sc_Stakeholders__c]
+      ,a.[is_sc_Timing__c]
+      ,a.[is_sc_Volume__c]
+      ,a.[is_School_Choice__c]
+      ,a.[is_SDR__c]
+      ,a.[is_SDR_Discovery_Last_Updated__c]
+      --,a.[is_Synced_Info_to_Leads_2013__c] ----Delete or Defunct
+      ,a.[is_Vendor_Partners__c]
+      ,a.[is_when_are_you_ready_to_move_online_reg__c]  
+      ,a.[IsDeleted]
+      ,a.[JigsawCompanyId] --field not found in spreadsheet infosnap sfdc tab
+      ,a.[last_updated_sales_team__c]
+      ,a.[LastActivityDate]
+      ,a.[LastModifiedById]
+      ,a.[LastModifiedDate]
+      ,a.[LastReferencedDate] --field not found in spreadsheet infosnap sfdc tab
+      ,a.[LastViewedDate] --field not found in spreadsheet infosnap sfdc tab
+      ,a.[MasterRecordId]
+      ,a.[MDR_ID__c]
+      ,a.[Name]
+      ,a.[Number_of_Applications__c]
+      ,a.[Number_of_Enrolled_Kids__c]
+      ,a.[Number_of_Recommedations_per_Application__c]
+      ,a.[Number_of_Schools__c]
+      --,a.[old_account_id__c]    ----Delete or Defunct
+      --,a.[old_comments__c]      ----Delete or Defunct
+      --,a.[old_member_org__c]    ----Delete or Defunct
+      --,a.[Old_Products__c]      ----Delete or Defunct
+      ,a.[Online_Admissions_Provider__c]
+      ,a.[Online_Reg_Re_Enroll_Provider__c]
+      ,a.[Opened__c]
+      ,a.[Original_Create_Date__c]
+      ,a.[Other_Admissions_DB__c]
+      --,a.[Other_Business_DB__c]   ----Delete or Defunct
+      --,a.[Other_Fundraiser_DB__c] ----Delete or Defunct
+      ,a.[Other_Registration_DB__c]
+	  --transformation rule for the OwnerId field
+      ,info_ownerId=a.[OwnerId]
+	  ,PowerUser_id=u.PowerSchoolFullID
+	  ,OwnerId=IIF(u.PowerSchoolFullID IS NULL,
+				   @strDefaultOwnerID,  --Eve Nunez user id
+				   u.PowerSchoolFullID)
+	  --end of transformation rule
+      ,a.[ParentId]
+      ,a.[Phone]
+      ,a.[PhotoUrl] --field not found in spreadsheet infosnap sfdc tab
+      ,a.[PowerSchool_SFDC_ID__c]
+      ,a.[RecordTypeId]
+	  --transformation rule for the Registration_DB__c field
+	  ,Registration_DB_Orig		= a.Registration_DB__c
+	  ,is_Discovery_SIS_Orig	= a.is_Discovery_SIS__c --field API name changed from Registration_DB__c to Current_SIS__c
+      ,Current_SIS__c=IIF(a.Registration_DB__c IS NULL,
+	                          a.is_Discovery_SIS__c,
+							  a.Registration_DB__c)      
+	  --End of transformation rule
+      ,a.[Religious_Affiliation__c]
+      ,a.[ShippingCity]
+      ,a.[ShippingCountry]
+      ,a.[ShippingGeocodeAccuracy] --field not found in spreadsheet infosnap sfdc tab
+      ,a.[ShippingLatitude] --field not found in spreadsheet infosnap sfdc tab
+      ,a.[ShippingLongitude] --field not found in spreadsheet infosnap sfdc tab
+      ,a.[ShippingPostalCode]
+      ,a.[ShippingState]
+      ,a.[ShippingStreet]
+      ,a.[Source_File__c]
+      ,a.[SystemModstamp]
+      ,a.[Type_of_School__c]
+      ,a.[Type_of_School_Choice__c]
+      ,a.[Website]
+      --,a.[Website_Provider__c]  ----Delete or Defunct
+	  into Account_LoadInfoSnap
+  FROM [PS_InfoSnapProd].[dbo].[Account] a 
+  Left Outer Join [PS_Staging_Amar].[dbo].[lu_Users] u 
+  on a.OwnerId=u.InfoSnapID
+ 
